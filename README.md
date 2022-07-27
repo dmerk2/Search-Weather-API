@@ -1,8 +1,9 @@
 # Search-Weather-API
 
 ## Table of Contents
-- [Project-Description](#project-description),
-- [Screenshot](#screenshot)
+  - [Project Description](#-project-description)
+  - [Screenshot](#-screenshot)
+  - [Deployed URL Link](#-deployed-url-link)
 
 ## Project Description
 ---
@@ -13,6 +14,6 @@
 
 ## Deployed URL Link
 ---
+https://dmerk2.github.io/Weather-Dashboard/
 
-<hr>
 © 2022 Daniel Merkin
