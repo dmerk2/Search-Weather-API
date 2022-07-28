@@ -17,28 +17,23 @@
 
   <main class="container-fluid">
     <section class="row mb-3">
-      <section class="col-4">
+      <section class="col-4 mb-3">
         <h2>Search for a City:</h2>
-        <section>
+        <section class="mb-3">
           <input type="search" placeholder="San Diego">
         </section>
-        <section> 
-          <input type="button" value="Search">
+        <section class="mb-3">
+          <input type="button" id="userSubmit" value="Search">
         </section>
-        <section>
-          <p id="cityButton"></p>
-        </section>
-        
+        <section id="searchedCities"></section>
       </section>
 
-      <section class="col-8 mb-3">
-        <h2 id="response"></h2>
-      </section>
+      <section id="currentWeather" class="col-8 mb-3"></section>
+      
     </section>
   </main>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
     integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
     crossorigin="anonymous"></script>

@@ -1,14 +1,18 @@
-let response = document.getElementById('response');
-let requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=trenton&appid=';
+const currentWeather = document.querySelector('#currentWeather');
+const searchedCities = document.querySelector('#searchedCities')
+const userSubmit = document.querySelector('#userSubmit')
 
-function getApi(requestUrl) {
+var getApi = function() {
+  var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=&appid=&appid=b1434cc4b4c38161215a67768fa4f514';
+
   fetch(requestUrl)
     .then(function (response) {
       console.log(response.status);
       //  Conditional for the the response.status.
       if (response.status !== 200) {
         // Place the response.status on the page.
-        responseText.textContent = response.status;
+        searchedCities.textContent = response.status;
+        console.log(response)
       }
       return response.json();
     })
@@ -18,4 +22,9 @@ function getApi(requestUrl) {
     });
 }
 
-getApi(requestUrl);
+getApi();
+
+
+// userSubmit.appendChild('#userSubmit')
+
+userSubmit.addEventListener('userSubmit', console.log('click'));
