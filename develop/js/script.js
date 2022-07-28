@@ -2,29 +2,44 @@ const currentWeather = document.querySelector('#currentWeather');
 const searchedCities = document.querySelector('#searchedCities')
 const userSubmit = document.querySelector('#userSubmit')
 
-var getApi = function() {
-  var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=&appid=&appid=b1434cc4b4c38161215a67768fa4f514';
+var getApi = function(city) {
+  var requestUrl = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=b1434cc4b4c38161215a67768fa4f514';
 
-  fetch(requestUrl)
+  fetch(requestUrl, city)
     .then(function (response) {
       console.log(response.status);
-      //  Conditional for the the response.status.
+      // If it doesn't connect, return the error code 
       if (response.status !== 200) {
-        // Place the response.status on the page.
         searchedCities.textContent = response.status;
         console.log(response)
       }
+      // Return in json format
       return response.json();
     })
+    // Get the data of the API call
     .then(function (data) {
-      // Make sure to look at the response in the console and read how 404 response is structured.
       console.log(data);
+      console.log(data.current.weather.description)
     });
 }
 
 getApi();
 
+// Find the current weather for the users query
+var displayWeather = function (weather) {
+  // If the user pushes submit with empty text, alert user
+  if (!userSubmit) {
+    alert('Please enter a city!');
+    return;
+  }
 
-// userSubmit.appendChild('#userSubmit')
+  for (let i = 0; i < weather.length; i++) {
 
-userSubmit.addEventListener('userSubmit', console.log('click'));
+    currentWeather.textContent = currentWeather[i];
+
+    currentWeather.appendChild(currentWeather);
+    console.log(weather)
+  }
+};
+
+userSubmit.addEventListener('userSubmit', displayWeather);
