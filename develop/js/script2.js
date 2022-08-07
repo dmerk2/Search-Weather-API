@@ -1,34 +1,72 @@
 var apiKey = "b1434cc4b4c38161215a67768fa4f514";
-
-var requestUrl = `http://api.openweathermap.org/geo/1.0/direct?q=&limit=5&appid=${apiKey}`;
-
-
-// Example Dataset
+var requestUrl =
+  "https://api.openweathermap.org/data/2.5/weather?q=" +
+  cityArr +
+  "&units=imperial&appid=" +
+  apiKey;
 var cityArr = [];
-// Adding dataset to Browser (localStorage)
-localStorage.setItem("allCities", JSON.stringify(cityArr));  // "[]"
+var cityInput = document.querySelector("#getWeatherBtn");
+var searchCityInput = document.querySelector("form");
+var clearBtn = document.querySelector("#clear");
+
 // grab reference to the form
-var cityInput = document.getElementById('getWeatherBtn');
-
-
-cityInput.addEventListener("click", function(event) {
+cityInput.addEventListener("click", function (event) {
   event.preventDefault();
 
   var userInput = document.getElementById("city").value;
-  console.log(userInput)
-
+  console.log(userInput);
+  userInput.textContent = city;
+  userInput.setAttribute;
   // call our add New City function
   addCityName(userInput);
-
-  // call your weather API 
 });
 
+clearBtn.addEventListener("click", function (event) {
+  event.preventDefault();
+});
 
+// Save newCity to localstorage
+function addCityName(newCity) {
+  // Adding dataset to Browser (localStorage)
+  localStorage.setItem("newCity", JSON.stringify(cityArr)); // "[]"
+  // grab user value from FORM input
+
+  // grab current data from localStorage (getItem)
+  var tempArr = JSON.parse(localStorage.getItem("newCity"));
+  // convert that data into a JS object (JSON.parse)
+
+  // Add new data
+  tempArr.push(newCity);
+
+  // We update the data in localStorage
+  localStorage.setItem("newCity", JSON.stringify(tempArr));
+}
+
+function clearHistory(event) {
+  event.preventDefault();
+  cityArr = [];
+  localStorage.removeItem("newCity");
+}
+
+function renderSavedCities() {
+  let searchedCity = localStorage.getItem("allCities");
+  let printCity = JSON.parse(searchedCity);
+
+  for (let i = 0; i < printCity.length; i++) {
+    let cityName = printCity[i];
+    console.log(cityName);
+    let formEl = document.createElement("button");
+
+    formEl.appendChild(searchedCity);
+  }
+}
+
+// call your weather API
 fetch(requestUrl)
   .then(function (response) {
-    console.log(response.status);
+    if (response) console.log(response.status);
     // If it doesn't connect, return the error code
-    if (response.status !== 200) {
+    if (response.ok !== 200) {
       // searchedCities.textContent = response.status;
       return response;
     }
@@ -39,68 +77,7 @@ fetch(requestUrl)
   .then(function (data) {
     console.log(data);
     return data;
+  })
+  .catch(function (error) {
+    alert("no connection");
   });
-  
-// Fix URL to get city data and add city as var
-
-// Taking city searched value
-// var searchCityInput = document.querySelector("form").value = "Working";
-
-
-var searchCityInput = document.querySelector("form")
-/*
-var getWeatherBtn = document.querySelector("#getWeatherBtn").addEventListener("click",function(event){
-  event.preventDefault()
-
-  // catupter the user input from FORM
-
-})
-*/
-
-// function renderSavedCities() {
-//   let searchedCity = localStorage.getItem("searchedCity"); // JSON OBJECT  "[ "{ "name": "tom" }" , "bill", "sarah"]"
-//   let printCity = JSON.parse(searchedCity);  // this will be a regular JS object 
-//   // example  of object KEY : VALUE pair
-//   // ex --> var ArrayObjs = [{ name: "billy" }, { name: "sarah"}]
-//   // aaray --> ["Austin", "detroit"]
-//   console.log(printCity);
-
-//   for (let i = 0; printCity.length; i++) {
-//     // we need to grab the name (VALUE) at each index
-//     // var cityName = 
-
-//     // 
-//   }
-// }
-
-function renderSavedCities() {
-  let searchedCity = localStorage.getItem("allCities");
-  let printCity = JSON.parse(searchedCity)
-  for (let i = 0; i < printCity.length; i++) {
-    let cityName = printCity[i];
-    console.log(cityName);
-    let liEL = document.createElement("button");
-    searchedCity.appendChild(liEL);
-    
-    liEL.appendChild(searchedCity)
-    liEL.innerHTML = searchCityInput
-  }
-
-}
-
-function addCityName(newCity) {
-  // grab user value from FORM input
-  // var newData = "Austin";
-
-  // grab current data from localStorage (getItem)
-  var tempArr = JSON.parse(localStorage.getItem("allCites"));
-  // convert that data into a JS object (JSON.parse)
-  
-  // Add new data
-  tempArr.push(newCity);
-  // We need to convert that JS object into a JSON (string) object
-
-  // We update the data in localStorage
-  localStorage.setItem("allCities", JSON.stringify(tempArr));
-}
-renderSavedCities()
