@@ -21,30 +21,41 @@
   <main class="flex-row justify-space-between">
     <div class="col-12 col-md-4">
 
+      <!-- Search city box -->
       <div class="card">
+
         <h3 class="card-header text-uppercase">Search By City</h3>
+
+        <!-- Form for city input -->
         <form id="user-form" class="card-body">
           <label class="form-label" for="city">City</label>
           <input placeholder="San Diego" name="city" id="city" type="text" autofocus="true" class="form-input" />
-          <button id="getWeatherBtn" type="submit" class="btn">Get Weather</button>
+          <button id="getWeatherBtn" type="submit" class="btn" value="Submit">Get Weather</button>
         </form>
       </div>
 
+      <!-- Previous Searches box -->
       <div class="card">
-        <h3 class="card-header text-uppercase">Previous Searches</h3>
-        <div id="language-buttons" class="card-body">
+        <h3 class="card-header text-uppercase" id="previousSearches">Previous Searches</h3>
+        <div id="listCities" class="card-body">
+
           <button data-language="San Diego" class="btn">San Diego</button>
           <button data-language="Dallas" class="btn">Dallas</button>
           <button data-language="Morristown" class="btn">Morristown</button>
+          <input type="button" value="Clear" id="clear" class="btn">
         </div>
       </div>
     </div>
 
-    <div class="col-12 col-md-8">
-      <h2 class="subtitle">The Weather is currently: <span id="currentWeather"></span></h2>
-      <div id="current-weather-container" class="list-group"></div>
+    <!-- Current weather box -->
+    <div id="currentWeather" class="col-12 col-md-8">
+      <h2 class="subtitle">The Weather is currently</h2>
+    </div>
+    <div>
+
     </div>
   </main>
+
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
@@ -57,6 +68,7 @@
     crossorigin="anonymous"></script>
   <!-- <script src="./Develop/js/script.js"></script> -->
   <script src="./Develop/js/script2.js"></script>
+
 </body>
 
 </html>
