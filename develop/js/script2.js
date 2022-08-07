@@ -7,7 +7,7 @@ var requestUrl =
 var cityArr = [];
 var cityInput = document.querySelector("#getWeatherBtn");
 var searchCityInput = document.querySelector("form");
-var clearBtn = document.querySelector("#clear");
+var clear = document.querySelector("#clear")
 
 // grab reference to the form
 cityInput.addEventListener("click", function (event) {
@@ -21,41 +21,18 @@ cityInput.addEventListener("click", function (event) {
   addCityName(userInput);
 });
 
-clearBtn.addEventListener("click", function (event) {
-  event.preventDefault();
-});
-
-// Save newCity to localstorage
-function addCityName(newCity) {
-  // Adding dataset to Browser (localStorage)
-  localStorage.setItem("newCity", JSON.stringify(cityArr)); // "[]"
-  // grab user value from FORM input
-
-  // grab current data from localStorage (getItem)
-  var tempArr = JSON.parse(localStorage.getItem("newCity"));
-  // convert that data into a JS object (JSON.parse)
-
-  // Add new data
-  tempArr.push(newCity);
-
-  // We update the data in localStorage
-  localStorage.setItem("newCity", JSON.stringify(tempArr));
-}
-
-function clearHistory(event) {
-  event.preventDefault();
-  cityArr = [];
-  localStorage.removeItem("newCity");
-}
+// Taking city searched value
 
 function renderSavedCities() {
   let searchedCity = localStorage.getItem("allCities");
   let printCity = JSON.parse(searchedCity);
 
+  // Print user input append to the previous searches container
   for (let i = 0; i < printCity.length; i++) {
     let cityName = printCity[i];
     console.log(cityName);
     let formEl = document.createElement("button");
+    // searchedCity.appendChild(formEl);
 
     formEl.appendChild(searchedCity);
   }
@@ -81,3 +58,29 @@ fetch(requestUrl)
   .catch(function (error) {
     alert("no connection");
   });
+
+function addCityName(newCity) {
+  // Adding dataset to Browser (localStorage)
+  localStorage.setItem("newCity", JSON.stringify(cityArr)); // "[]"
+  // grab user value from FORM input
+
+  // grab current data from localStorage (getItem)
+  var tempArr = JSON.parse(localStorage.getItem("newCity"));
+  // convert that data into a JS object (JSON.parse)
+
+  // Add new data
+  tempArr.push(newCity);
+
+  // We update the data in localStorage
+  localStorage.setItem("newCity", JSON.stringify(tempArr));
+}
+
+//Clear the search history from the page
+function clearHistory(event){
+  event.preventDefault();
+  cityArr=[];
+  localStorage.removeItem("newCity");
+  document.location.reload()
+}
+
+clear.addEventListener("click", clearHistory)
