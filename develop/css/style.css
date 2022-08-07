@@ -1,3 +1,7 @@
+html {
+  background-image: url("/Images/background.jpg");
+  background-repeat: no-repeat; 
+}
 :root {
   --primary: #ccdad1;
   --secondary: #9caea9;
@@ -7,15 +11,16 @@
   --border-radius: .3rem;
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
-  background-color: var(--primary);
   margin: 0;
   padding: 0;
-  font-family: "IBM Plex Sans", sans-serif;
+  font-family: cursive, "IBM Plex Sans", sans-serif;
   color: var(--dark);
   line-height: 1.5;
   font-size: 16px;
@@ -94,7 +99,9 @@ p {
 
 .hero {
   padding: 3% 4%;
-  background-color: var(--dark);
+  background-color: lightskyblue;
+  border-bottom: 1px solid black;
+  box-shadow: 1px 1px 4px 2px black;
   color: var(--primary);
 }
 
@@ -104,13 +111,10 @@ p {
 
 .app-title {
   font-size: 3rem;
-  background-color: var(--primary);
   color: var(--dark);
   padding: 10px;
   margin: auto;
   display: flow-root;
-  border-radius: var(--border-radius);
-  box-shadow: 6px 5px var(--light-dark);
 }
 
 .list-group {
@@ -155,7 +159,7 @@ p {
 
 .card-header {
   color: var(--primary);
-  background-color: var(--dark);
+  background-color: skyblue;
   padding: 2.5%;
   border-radius: calc(.18rem - 1px) calc(.18rem - 1px) 0 0;
 }
@@ -183,6 +187,14 @@ p {
   font-size: 1.2rem;
   border: 2px solid var(--light-dark);
   border-radius: var(--border-radius);
+}
+
+#currentWeather {
+  background-color: lightskyblue;
+  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 2px 2px 2px 2px black;
+  padding: 10px;
 }
 
 /* HEIGHT / WIDTH UTILS */
