@@ -30,41 +30,84 @@
         <form id="user-form" class="card-body">
           <label class="form-label" for="city">City</label>
           <input placeholder="San Diego" name="city" id="city" type="text" autofocus="true" class="form-input" />
-          <button id="getWeatherBtn" type="submit" class="btn" value="Submit">Get Weather</button>
+          <button id="getWeatherBtn" type="submit" class="btn btn-primary" value="Submit">Get Weather</button>
         </form>
       </div>
 
       <!-- Previous Searches box -->
       <div class="card" id="previousSearches">
         <h3 class="card-header text-uppercase">Previous Searches</h3>
-        <div id="listCities" class="card-body">
+        <div class="card-body">
+          <!-- Append li elements to ul -->
+          <ul id="listCities">
 
-          <button data-language="San Diego" class="btn">San Diego</button>
-          <button data-language="Dallas" class="btn">Dallas</button>
-          <button data-language="Morristown" class="btn">Morristown</button>
-          <input type="button" value="Clear" id="clear" class="btn">
+          </ul>
+
+          <!-- <button data-language="San Diego" class="btn btn-primary">San Diego</button>
+          <button data-language="Dallas" class="btn btn-primary">Dallas</button>
+          <button data-language="Morristown" class="btn btn-primary">Morristown</button> -->
+          <input type="button" value="Clear" id="clear" class="btn btn-danger">
         </div>
       </div>
     </div>
 
     <!-- Current weather box -->
     <div id="currentWeather" class="col-12 col-md-8">
-      <h2 class="subtitle">The Weather is currently</h2>
+      <h2 class="subtitle mt-2">The Weather is currently</h2><br>
+      <p>Temperature:<span class="current" id="temperature"></span></p>
+      <p>Humidity:<span class="current" id="humidity"></span></p>
+      <p>Wind Speed:<span class="current" id="wind-speed"></span></p>
+      <p>UV index:<span class="current  rounded py-2 px-2 text-white" id="uv-index"></span></p>
     </div>
-    <div>
 
+    <!-- For the 5 day forecast -->
+    <div class="col-sm-12" id="future-weather">
+      <h3>5-Day Forecast:</h3>
+      <div class="row text-light">
+        <div class="col-sm-2 bg-primary forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+          <p id="fDate0"></p>
+          <p id="fImg0"></p>
+          <p>Temp:<span id="fTemp0"></span></p>
+          <p>Wind Speed:<span id="fWindSpeed0"></span></p>
+          <p>Humidity:<span id="fHumidity0"></span></p>
+        </div>
+        <div class="col-sm-2 bg-primary forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+          <p id="fDate1"></p>
+          <p id="fImg1"></p>
+          <p>Temp:<span id="fTemp1"></span></p>
+          <p>Wind Speed:<span id="fWindSpeed1"></span></p>
+          <p>Humidity:<span id="fHumidity1"></span></p>
+        </div>
+        <div class="col-sm-2 bg-primary forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+          <p id="fDate2"></p>
+          <p id="fImg2"></p>
+          <p>Temp:<span id="fTemp2"></span></p>
+          <p>Wind Speed:<span id="fWindSpeed2"></span></p>
+          <p>Humidity:<span id="fHumidity2"></span></p>
+        </div>
+        <div class="col-sm-2 bg-primary forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+          <p id="fDate3"></p>
+          <p id="fImg3"></p>
+          <p>Temp:<span id="fTemp3"></span></p>
+          <p>Wind Speed:<span id="fWindSpeed3"></span></p>
+          <p>Humidity:<span id="fHumidity3"></span></p>
+        </div>
+        <div class="col-sm-2 bg-primary forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+          <p id="fDate4"></p>
+          <p id="fImg4"></p>
+          <p>Temp:<span id="fTemp4"></span></p>
+          <p>Wind Speed:<span id="fWindSpeed4"></span></p>
+          <p>Humidity:<span id="fHumidity4"></span></p>
+        </div>
+      </div>
     </div>
+
   </main>
-
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"
     integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
     integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js"
-    integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK"
     crossorigin="anonymous"></script>
   <!-- <script src="./Develop/js/script.js"></script> -->
   <script src="./Develop/js/script2.js"></script>
