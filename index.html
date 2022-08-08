@@ -30,7 +30,7 @@
         <form id="user-form" class="card-body">
           <label class="form-label" for="city">City</label>
           <input placeholder="San Diego" name="city" id="city" type="text" autofocus="true" class="form-input" />
-          <button id="getWeatherBtn" type="submit" class="btn btn-primary" value="Submit">Get Weather</button>
+          <button id="cityInputBtn" type="submit" class="btn btn-primary" value="Submit">Get Weather</button>
         </form>
       </div>
 
@@ -42,10 +42,6 @@
           <ul id="listCities">
 
           </ul>
-
-          <!-- <button data-language="San Diego" class="btn btn-primary">San Diego</button>
-          <button data-language="Dallas" class="btn btn-primary">Dallas</button>
-          <button data-language="Morristown" class="btn btn-primary">Morristown</button> -->
           <input type="button" value="Clear" id="clear" class="btn btn-danger">
         </div>
       </div>
@@ -53,11 +49,11 @@
 
     <!-- Current weather box -->
     <div id="currentWeather" class="col-12 col-md-8">
-      <h2 class="subtitle mt-2">The Weather is currently</h2><br>
+      <h2 class="subtitle mt-2">Today is </h2><span id="currentDate"></span><br>
       <p>Temperature:<span class="current" id="temperature"></span></p>
       <p>Humidity:<span class="current" id="humidity"></span></p>
       <p>Wind Speed:<span class="current" id="wind-speed"></span></p>
-      <p>UV index:<span class="current  rounded py-2 px-2 text-white" id="uv-index"></span></p>
+      <p>UV index:<span class="current rounded py-2 px-2 text-white" id="uv-index"></span></p>
     </div>
 
     <!-- For the 5 day forecast -->
