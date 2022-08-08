@@ -1,13 +1,16 @@
 var apiKey = "b1434cc4b4c38161215a67768fa4f514";
-var requestUrl =
-  "https://api.openweathermap.org/data/2.5/weather?q=" +
-  cityArr +
-  "&units=imperial&appid=" +
-  apiKey;
+// var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityArr}&units=imperial&appid=${apiKey}`;
+// var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${apiKey}`
 var cityArr = [];
 var cityInput = document.querySelector("#getWeatherBtn");
 var searchCityInput = document.querySelector("form");
-var clear = document.querySelector("#clear")
+var clear = document.querySelector("#clear");
+var temperature = document.querySelector("#temperature");
+var humidity = document.querySelector("#humidity");
+var windSpeed = document.querySelector("#wind-speed");
+var uvIndex = document.querySelector("#uv-index");
+var listCities = document.querySelector("#listCities");
+var currentWeather = document.querySelector("#currentWeather");
 
 // grab reference to the form
 cityInput.addEventListener("click", function (event) {
@@ -15,36 +18,29 @@ cityInput.addEventListener("click", function (event) {
 
   var userInput = document.getElementById("city").value;
   console.log(userInput);
-  userInput.textContent = city;
-  userInput.setAttribute;
-  // call our add New City function
+  userInput.textContent = currentWeather;
   addCityName(userInput);
 });
 
-// Taking city searched value
+// function renderSavedCities() {
+//   let searchedCity = localStorage.getItem("allCities");
+//   let printCity = JSON.parse(searchedCity);
 
-function renderSavedCities() {
-  let searchedCity = localStorage.getItem("allCities");
-  let printCity = JSON.parse(searchedCity);
+//   // Print user input append to the previous searches container
+//   for (let i = 0; i < printCity.length; i++) {
+//     let cityName = printCity[i];
+//     console.log(cityName);
+//     let formEl = document.createElement("button");
+//     formEl.appendChild(previousSearches);
+//   }
+// }
 
-  // Print user input append to the previous searches container
-  for (let i = 0; i < printCity.length; i++) {
-    let cityName = printCity[i];
-    console.log(cityName);
-    let formEl = document.createElement("button");
-    // searchedCity.appendChild(formEl);
-
-    formEl.appendChild(searchedCity);
-  }
-}
-
-// call your weather API
 fetch(requestUrl)
   .then(function (response) {
     if (response) console.log(response.status);
     // If it doesn't connect, return the error code
     if (response.ok !== 200) {
-      // searchedCities.textContent = response.status;
+      searchedCities.textContent = response.status;
       return response;
     }
     // Return in json format
@@ -55,6 +51,7 @@ fetch(requestUrl)
     console.log(data);
     return data;
   })
+  // Use catch if then statements don't succeed
   .catch(function (error) {
     alert("no connection");
   });
@@ -62,25 +59,20 @@ fetch(requestUrl)
 function addCityName(newCity) {
   // Adding dataset to Browser (localStorage)
   localStorage.setItem("newCity", JSON.stringify(cityArr)); // "[]"
-  // grab user value from FORM input
-
   // grab current data from localStorage (getItem)
   var tempArr = JSON.parse(localStorage.getItem("newCity"));
-  // convert that data into a JS object (JSON.parse)
-
   // Add new data
   tempArr.push(newCity);
-
   // We update the data in localStorage
   localStorage.setItem("newCity", JSON.stringify(tempArr));
 }
 
 //Clear the search history from the page
-function clearHistory(event){
+function clearHistory(event) {
   event.preventDefault();
-  cityArr=[];
+  cityArr = [];
   localStorage.removeItem("newCity");
-  document.location.reload()
+  document.location.reload();
 }
 
-clear.addEventListener("click", clearHistory)
+clear.addEventListener("click", clearHistory);
