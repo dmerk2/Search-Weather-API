@@ -1,7 +1,6 @@
 var apiKey = "b1434cc4b4c38161215a67768fa4f514";
 // var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityArr}&units=imperial&appid=${apiKey}`;
-var requestUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&APPID=${apiKey}`;
-var cityArr = [];
+// var requestUrl = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&APPID=" + apiKey;
 var cityInput = document.querySelector("#cityInputBtn");
 var clear = document.querySelector("#clear");
 var temperature = document.querySelector("#temperature");
@@ -13,34 +12,30 @@ var currentWeather = document.querySelector("#currentWeather");
 var ulEl = document.querySelector("#listCities");
 var currentDate = document.querySelector("#currentDate");
 
-currentDate = moment().format("MMMM Do YYYY, h:mm:ss a");
+// Use Moment to determine the current and future data
+var currentDate = document.querySelector("#currentDate")
+currentDate.textContent = moment().format("dddd ll")
 
-// grab reference to the form
+var fDate0 = document.querySelector("#fDate0");
+fDate0.textContent = moment().add(1, "days").format("dddd")
+
+var fDate1 = document.querySelector("#fDate1");
+fDate1.textContent = moment().add(2, "days").format("dddd")
+
+var fDate2 = document.querySelector("#fDate2");
+fDate2.textContent = moment().add(3, "days").format("dddd")
+
+var fDate3 = document.querySelector("#fDate3");
+fDate3.textContent = moment().add(4, "days").format("dddd")
+
+var fDate4 = document.querySelector("#fDate4");
+fDate4.textContent = moment().add(5, "days").format("dddd")
+
+// Grab user's input
 cityInput.addEventListener("click", function (event) {
   event.preventDefault();
   addCityName();
 });
-
-fetch(requestUrl)
-  .then(function (response) {
-    if (response) console.log(response.status);
-    // If it doesn't connect, return the error code
-    if (response.ok !== 200) {
-      currentWeather.textContent = response.status;
-      return response;
-    }
-    // Return in json format
-    return response.json();
-  })
-  // Get the data of the API call
-  .then(function (data) {
-    console.log(data);
-    return data;
-  })
-  // Use catch if then statements don't succeed
-  .catch(function (error) {
-    alert("no connection");
-  });
 
 function addCityName() {
   var userInput = document.getElementById("city").value;
@@ -50,25 +45,28 @@ function addCityName() {
   var stored = {
     search: userInput,
   };
+
+  if (!userInput) {
+    alert("You must search a city!");
+  }
   // // Add new data
   localStorage.setItem("stored", JSON.stringify(stored));
   tempArr.push(stored);
 
-  // We update the data in localStorage
+  // Update the data in localStorage
   localStorage.setItem("allCities", JSON.stringify(tempArr));
 }
 
-
-
-//Clear the search history from the page
+//Clear the search history and local storage from the page
 function clearHistory(event) {
   event.preventDefault();
-  cityArr = [];
-  localStorage.removeItem("newCity");
+  stored = [];
+  localStorage.clear();
   document.location.reload();
 }
 
 clear.addEventListener("click", clearHistory);
+
 function renderSaved() {
   var cities = localStorage.getItem("allCities");
   var printCity = JSON.parse(cities);
@@ -76,10 +74,57 @@ function renderSaved() {
   // Creates li for user's city input
   for (var i = 0; printCity.length; i++) {
     var cities = printCity[i].search;
-    var liEl = document.createElement("li");
+    var liEl = document.createElement("li"); // or button? How to keep them individual?
     liEl.textContent = cities;
     ulEl.appendChild(liEl);
   }
 }
 
 renderSaved();
+
+function getWeather(city) {
+  var requestUrl =
+    "https://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&units=imperial&APPID=" +
+    apiKey;
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      currentWeather.textContent = response.name;
+      console.log(response.name);
+      return data;
+    })
+    .catch(function (error) {
+      alert("No Connection");
+    });
+}
+getWeather(city);
+
+function getUV(lat, lon) {
+  var requestUrl =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&exclude=minutely,hourly" +
+    "&units=imperial&appid" +
+    apiKey;
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      return data;
+    })
+    .catch(function (error) {
+      alert("No UV connection")
+    });
+}
+
+getUV(lat, lon)
