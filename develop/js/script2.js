@@ -4,8 +4,10 @@ var apiKey = "b1434cc4b4c38161215a67768fa4f514";
 var cityInput = document.querySelector("#cityInputBtn");
 var clear = document.querySelector("#clear");
 var listCities = document.querySelector("#listCities");
-var currentWeather = document.querySelector("#currentWeather");
+// var currentWeather = document.querySelector("#currentWeather");
 var ulEl = document.querySelector("#listCities");
+
+// City Name
 
 // UV ID
 var uvIndex = document.querySelector("#uv-index");
@@ -44,7 +46,7 @@ var fHumidity4 = document.querySelector("#fHumidity4")
 
 
 // Use Moment to determine the current and future data
-var currentDate = document.querySelector("#currentDate");
+// var currentDate = document.querySelector("#currentDate");
 var currentDate = document.querySelector("#currentDate")
 currentDate.textContent = moment().format("l")
 var fDate0 = document.querySelector("#fDate0");
@@ -61,17 +63,24 @@ fDate4.textContent = moment().add(5, "days").format("l")
 // Grab user's input
 cityInput.addEventListener("click", function (event) {
   event.preventDefault();
-  addCityName();
+
+  var userInput = document.getElementById("city").value;
+  console.log(userInput);
+ 
+  addCityName(userInput);
+  getWeather(userInput);
 });
 
-
-
 function getWeather(city) {
+  // console.log(city);
+
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&units=imperial&APPID=" +
     apiKey;
+
+  console.log(requestUrl);  
 // var requestUrl = "https://api.openweathermap.org/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=hourly,daily&appid=" + apiKey;
   fetch(requestUrl)
     .then(function (response) {
@@ -79,32 +88,63 @@ function getWeather(city) {
       return response.json();
     })
     .then(function (data) {
-      currentWeather.textContent = response.name;
-      console.log(response.name);
+      console.log(data);
+      
+      temp.textContent = data.main.temp;
+      var icon = data.weather[0].icon;
+      console.log(icon);
+
       return data;
     })
     .catch(function (error) {
-      alert("No Connection");
+      console.log(error)
+      // alert("No Connection");
     });
 }
 
 getWeather(city);
 
-function addCityName() {
-  var userInput = document.getElementById("city").value;
+function getUV(lat, lon) {
+  var requestUrl =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+    lat +
+    "&lon=" +
+    lon +
+    "&exclude=minutely,hourly" +
+    "&units=imperial&appid" +
+    apiKey;
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      return data;
+    })
+    .catch(function (error) {
+      alert("No UV connection")
+    });
+}
+
+function addCityName(cityName) {
+  // var userInput = document.getElementById("city").value;
+  console.log(cityName); // -> Dallas
+
   var tempArr = JSON.parse(localStorage.getItem("allCities"));
   if (tempArr === null) tempArr = [];
 
   var stored = {
-    search: userInput,
+    search: cityName,
   };
 
-  if (!userInput) {
+  if (!cityName) {
     alert("You must search a city!");
   }
   // // Add new data
-  localStorage.setItem("stored", JSON.stringify(stored));
+  // localStorage.setItem("stored", JSON.stringify(stored));
   tempArr.push(stored);
+  // console.log(tempArr);
 
   // Update the data in localStorage
   localStorage.setItem("allCities", JSON.stringify(tempArr));
@@ -135,27 +175,6 @@ function renderSaved() {
 
 renderSaved();
 
-function getUV(lat, lon) {
-  var requestUrl =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=" +
-    lat +
-    "&lon=" +
-    lon +
-    "&exclude=minutely,hourly" +
-    "&units=imperial&appid" +
-    apiKey;
 
-  fetch(requestUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (data) {
-      console.log(data);
-      return data;
-    })
-    .catch(function (error) {
-      alert("No UV connection")
-    });
-}
 
 getUV(lat, lon)
