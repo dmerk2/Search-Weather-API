@@ -1,7 +1,8 @@
-/* html {
+html {
   background-image: url("/Images/background.jpg");
   background-repeat: no-repeat; 
-} */
+}
+
 :root {
   --light: #ccdad1;
   --dark: #38302e;
