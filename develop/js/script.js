@@ -4,7 +4,6 @@ var clear = document.querySelector("#clear");
 var listCities = document.querySelector("#listCities");
 // var currentWeather = document.querySelector("#currentWeather");
 var ulEl = document.querySelector("#listCities");
-
 // Image IDs
 var img = document.querySelector("#img");
 var fImg0 = document.querySelector("#fImg0");
@@ -12,31 +11,6 @@ var fImg1 = document.querySelector("#fImg1");
 var fImg2 = document.querySelector("#fImg2");
 var fImg3 = document.querySelector("#fImg3");
 var fImg4 = document.querySelector("#fImg4");
-
-// Temperature IDs
-var temp = document.querySelector("#temp");
-var fTemp0 = document.querySelector("#fTemp0");
-var fTemp1 = document.querySelector("#fTemp1");
-var fTemp2 = document.querySelector("#fTemp2");
-var fTemp3 = document.querySelector("#fTemp3");
-var fTemp4 = document.querySelector("#fTemp4");
-
-// Windspeed IDs
-var windSpeed = document.querySelector("#wind-speed");
-var fWindSpeed0 = document.querySelector("#fWindSpeed0");
-var fWindSpeed1 = document.querySelector("#fWindSpeed1");
-var fWindSpeed2 = document.querySelector("#fWindSpeed2");
-var fWindSpeed3 = document.querySelector("#fWindSpeed3");
-var fWindSpeed4 = document.querySelector("#fWindSpeed4");
-
-// Humidity IDs
-var humidity = document.querySelector("#humidity");
-var fHumidity0 = document.querySelector("#fHumidity0");
-var fHumidity1 = document.querySelector("#fHumidity1");
-var fHumidity2 = document.querySelector("#fHumidity2");
-var fHumidity3 = document.querySelector("#fHumidity3");
-var fHumidity4 = document.querySelector("#fHumidity4");
-
 // Use Moment to determine the current and future data
 var currentDate = document.querySelector("#currentDate");
 currentDate.textContent = moment().format("l");
@@ -50,74 +24,102 @@ var fDate3 = document.querySelector("#fDate3");
 fDate3.textContent = moment().add(4, "days").format("l");
 var fDate4 = document.querySelector("#fDate4");
 fDate4.textContent = moment().add(5, "days").format("l");
-
 // Grab user's input
 cityInput.addEventListener("click", function (event) {
   event.preventDefault();
-
   var userInput = document.getElementById("city").value;
-  // getUV(userInput)
+  // Keith -- Saves city to local memory
   addCityName(userInput);
+  //Keith -- Fetches data from API
   getWeather(userInput);
 });
-
+//Keith - Function to get 5-Day forecast
 function getWeather(city) {
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&units=imperial&APPID=" +
     apiKey;
-
   fetch(requestUrl)
     .then(function (response) {
       // console.log(response);
       return response.json();
     })
     .then(function (data) {
-      console.log(data);
+      // console.log(data);
+      //Keith -- need to add another fetch (Below) to get coordinates to 5-Day forecast URL
+      var requestUrl2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${data.coord.lat}&lon=${data.coord.lon}&units=imperial&appid=${apiKey}`;
+      return fetch(requestUrl2);
+    }).then(function (response) {
+      // console.log(response);
+      return response.json();
+    })
+    .then(function (data) {
+      // console.log(data);
+      //Keith -- Image in HTML needs have an IMG tag couldn't figure it out
+      // var iconEl = getElementById('icon');
+      // iconEl.textContent = data.list[0].weather[0].icon;
+      // imageUrl = "https://openweathermap.org/img/wn/" + data.list[0].weather[0].icon + "@2x.png";
+      // iconEl.setAttribute("src", imageUrl);
+      // console.log(imageUrl);
+      //Keith -- Added IDs to fetch so that they can be seen
+      // Humidity IDs
+      var humidity = document.querySelector("#humidity");
+      var fHumidity0 = document.querySelector("#fHumidity0");
+      var fHumidity1 = document.querySelector("#fHumidity1");
+      var fHumidity2 = document.querySelector("#fHumidity2");
+      var fHumidity3 = document.querySelector("#fHumidity3");
+      var fHumidity4 = document.querySelector("#fHumidity4");
+      // Temperature IDs
+      var temp = document.querySelector("#temp");
+      var fTemp0 = document.querySelector("#fTemp0");
+      var fTemp1 = document.querySelector("#fTemp1");
+      var fTemp2 = document.querySelector("#fTemp2");
+      var fTemp3 = document.querySelector("#fTemp3");
+      var fTemp4 = document.querySelector("#fTemp4");
+      // Windspeed IDs
+      var windSpeed = document.querySelector("#wind-speed");
+      var fWindSpeed0 = document.querySelector("#fWindSpeed0");
+      var fWindSpeed1 = document.querySelector("#fWindSpeed1");
+      var fWindSpeed2 = document.querySelector("#fWindSpeed2");
+      var fWindSpeed3 = document.querySelector("#fWindSpeed3");
+      var fWindSpeed4 = document.querySelector("#fWindSpeed4");
 
-      var icon = data.weather[0].icon;
-      icon.textContent = img;
-
-      humidity.textContent = data.main.humidity + " %";
-      temp.textContent = data.main.temp + " F";
-      windSpeed.textContent = data.main.wind_speed + " MPH";
-      uvIndex.textContent = data.main.uvi;
-
-      // Any change for data everything after stops being displayed!!
-      fTemp0.textContent = data.main.temp + " F";
-      fTemp1.textContent = data.main.temp + " F";
-      fTemp2.textContent = data.main.temp + " F";
-      fTemp3.textContent = data.main.temp + " F";
-      // fTemp4.textContent = data.main.daily[5].temp + " F";
-
+      humidity.textContent = data.list[0].main.humidity + " %";
+      temp.textContent = data.list[0].main.temp + " F";
+      windSpeed.textContent = data.list[0].wind.speed + " MPH";
+      //Keith -- I got UV from another API
+      // uvIndex.textContent = data.main.uvi;
+      console.log(data.list[0].wind.speed);
+      fTemp0.textContent = data.list[0].main.temp + " F";
+      fTemp1.textContent = data.list[9].main.temp + " F";
+      fTemp2.textContent = data.list[18].main.temp + " F";
+      fTemp3.textContent = data.list[27].main.temp + " F";
+      fTemp4.textContent = data.list[36].main.temp + " F";
       // Future wind speed
-      fWindSpeed0.textContent = data.main.wind + " MPH";
-      fWindSpeed1.textContent = data.main.wind + " MPH";
-      fWindSpeed2.textContent = data.main.wind + " MPH";
-      fWindSpeed3.textContent = data.main.wind + " MPH";
-      fWindSpeed4.textContent = data.main.wind + " MPH";
-
+      fWindSpeed0.textContent = data.list[0].wind.speed + " MPH";
+      fWindSpeed1.textContent = data.list[9].wind.speed + " MPH";
+      fWindSpeed2.textContent = data.list[18].main.wind + " MPH";
+      fWindSpeed3.textContent = data.list[27].main.wind + " MPH";
+      fWindSpeed4.textContent = data.list[36].main.wind + " MPH";
       // Future humidity
-      fHumidity0.textContent = data.main.humidity + " %";
-      fHumidity1.textContent = data.main.humidity + " %";
-      fHumidity2.textContent = data.main.humidity + " %";
-      fHumidity3.textContent = data.main.humidity + " %";
-      fHumidity4.textContent = data.main.humidity + " %";
+      fHumidity0.textContent = data.list[0].main.humidity + " %";
+      fHumidity1.textContent = data.list[9].main.humidity + " %";
+      fHumidity2.textContent = data.list[18].main.humidity + " %";
+      fHumidity3.textContent = data.list[27].main.humidity + " %";
+      fHumidity4.textContent = data.list[36].main.humidity + " %";
 
-      var lat = data.coord.lat;
-      var lon = data.coord.lon;
-
+      //Keith - Needed to move the variables below to
+      // var lat = data.coord.lat;
+      // var lon = data.coord.lon;
       getUV(lat, lon);
       return data;
     })
     .catch(function (error) {
-      console.log(error);
+      // console.log(error);
     });
 }
-
 getWeather(city);
-
 function getUV(lat, lon) {
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/onecall?lat=" +
@@ -127,19 +129,17 @@ function getUV(lat, lon) {
     "&exclude=minutely,hourly" +
     "&units=imperial&appid" +
     apiKey;
-
   fetch(requestUrl)
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       return response.json();
     })
     .then(function (data) {
       uvIndex = document.querySelector("#uv-index");
       uvIndex = response.current.uvi;
-      console.log(uvIndex);
+      // console.log(uvIndex);
       uvIndex.textContent = uvIndex;
       // fTemp0.textContent = data.main.temp + " F";
-
       return data;
     })
     .catch(function (error) {
@@ -157,50 +157,39 @@ function getUvIndex(cityName) {
   }
 }
 // getUvIndex(uvIndex);
-
 function addCityName(cityName) {
   // var userInput = document.getElementById("city").value;
-  console.log(cityName); // -> Dallas
-
+  // console.log(cityName); // -> Dallas
   var tempArr = JSON.parse(localStorage.getItem("allCities"));
   if (tempArr === null) tempArr = [];
-
   var stored = {
-    savedSearch: cityName,
+    search: cityName,
   };
-
   if (!cityName) {
-    alert("You must savedSearch a city!");
+    alert("You must search a city!");
   }
-
   // Add new data
   tempArr.push(stored);
-
   // Update the data in localStorage
   localStorage.setItem("allCities", JSON.stringify(tempArr));
 }
-
-//Clear the savedSearch history and local storage from the page
+//Clear the search history and local storage from the page
 function clearHistory(event) {
   event.preventDefault();
   stored = [];
   localStorage.clear();
   document.location.reload();
 }
-
 clear.addEventListener("click", clearHistory);
-
 function renderSaved() {
   var cities = localStorage.getItem("allCities");
   var printCity = JSON.parse(cities);
-
   // Creates li for user's city input
   for (var i = 0; printCity.length; i++) {
-    var cities = printCity[i].savedSearch;
-    var liEl = document.createElement("li"); // or button? How to keep them individual?
+    var cities = printCity[i].search;
+    var liEl = document.createElement("li");
     liEl.textContent = cities;
     ulEl.appendChild(liEl);
   }
 }
-
 renderSaved();
