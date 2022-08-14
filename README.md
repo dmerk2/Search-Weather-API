@@ -42,7 +42,7 @@ Click the lightning bolt [⚡](#) to see the application in action!
 ---
 
 ```md
-Daniel Merkin
+> Daniel Merkin
 ```
 
 Click to view <a href="https://github.com/dmerk2">Daniel Merkin's</a> Github.

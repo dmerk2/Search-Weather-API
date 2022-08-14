@@ -166,11 +166,11 @@ function addCityName(cityName) {
   if (tempArr === null) tempArr = [];
 
   var stored = {
-    search: cityName,
+    savedSearch: cityName,
   };
 
   if (!cityName) {
-    alert("You must search a city!");
+    alert("You must savedSearch a city!");
   }
 
   // Add new data
@@ -180,7 +180,7 @@ function addCityName(cityName) {
   localStorage.setItem("allCities", JSON.stringify(tempArr));
 }
 
-//Clear the search history and local storage from the page
+//Clear the savedSearch history and local storage from the page
 function clearHistory(event) {
   event.preventDefault();
   stored = [];
@@ -196,7 +196,7 @@ function renderSaved() {
 
   // Creates li for user's city input
   for (var i = 0; printCity.length; i++) {
-    var cities = printCity[i].search;
+    var cities = printCity[i].savedSearch;
     var liEl = document.createElement("li"); // or button? How to keep them individual?
     liEl.textContent = cities;
     ulEl.appendChild(liEl);
