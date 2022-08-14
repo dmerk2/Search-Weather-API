@@ -82,9 +82,11 @@ function getWeather(city) {
       humidity.textContent = data.main.humidity + " %";
       temp.textContent = data.main.temp + " F";
       windSpeed.textContent = data.main.wind_speed + " MPH";
-      // uvIndex.textContent = data.main.uvi;
+      uvIndex.textContent = data.main.uvi;
 
-      // Future temperature
+      for (var i = 0; i < 5; i++){
+       
+    }
       // Any change for data everything after stops being displayed!!
       fTemp0.textContent = data.main.temp + " F";
       fTemp1.textContent = data.main.temp + " F";
@@ -139,14 +141,6 @@ function getUV(lat, lon) {
       uvIndex = response.current.uvi;
       console.log(uvIndex);
       uvIndex.textContent = uvIndex;
-      //   if (uvIndex >= 8) {
-      //     document.getElementById("uvIndex").style("color", "red");
-      //   } else if (uvIndex > 4 && uvIndex < 8) {
-      //     document.getElementById("uvIndex").style("color", "yellow");
-      //   } else {
-      //     document.getElementById("uvIndex").style("color", "green");
-      //   }
-      // }
       // fTemp0.textContent = data.main.temp + " F";
 
       return data;
@@ -155,16 +149,16 @@ function getUV(lat, lon) {
       alert("No UV connection");
     });
 }
-
-// function getUvIndex(uvIndex) {
-//   if (uvIndex >= 8) {
-//     document.getElementById("uvIndex").style("color", "red");
-//   } else if (uvIndex > 4 && uvIndex < 8) {
-//     document.getElementById("uvIndex").style("color", "yellow");
-//   } else {
-//     document.getElementById("uvIndex").style("color", "green");
-//   }
-// }
+// Function to get the uv index for the current city
+function getUvIndex(cityName) {
+  if (uvIndex >= 8) {
+    document.getElementById("uvIndex").style("color", "red");
+  } else if (uvIndex > 4 && uvIndex < 8) {
+    document.getElementById("uvIndex").style("color", "yellow");
+  } else {
+    document.getElementById("uvIndex").style("color", "green");
+  }
+}
 // getUvIndex(uvIndex);
 
 function addCityName(cityName) {
