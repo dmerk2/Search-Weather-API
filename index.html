@@ -11,91 +11,95 @@
 
 </head>
 
-<body class="flex-column min-100-vh">
+<body class="min-100-vh">
+
   <header class="hero jumbotron">
     <h1 class="app-title text-center">Weather Dashboard</h1>
   </header>
+  <main>
+    <section class="flex-row">
+      <section class="col-4">
 
+        <!-- Search city box -->
+        <section class="card flex-column">
 
-  <main class="flex-row justify-space-between">
-    <div class="col-4">
+          <h3 class="card-header ">Search City</h3>
 
-      <!-- Search city box -->
-      <div class="card">
+          <!-- Form for city input -->
+          <form id="user-form" class="card-body">
+            <label class="form-label" for="city">City </label>
+            <input placeholder="Dallas" name="city" id="city" type="text" autofocus="true" class="form-input" />
+            <button id="cityInputBtn" type="submit" class="btn btn-primary" value="Submit">Get Weather</button>
+          </form>
+        </section>
 
-        <h3 class="card-header text-uppercase">Search By City</h3>
+        <!-- Previous Searches box -->
+        <section class="card " id="previousSearches">
+          <h3 class="card-header text-center">Past Searches</h3>
+          <section class="card-body">
+            <!-- Append li elements to ul -->
+            <ul id="listCities">
+            </ul>
+            <input type="button" value="Clear" id="clear" class="btn btn-danger">
+          </section>
+        </section>
+      </section>
 
-        <!-- Form for city input -->
-        <form id="user-form" class="card-body">
-          <label class="form-label" for="city">City </label>
-          <input placeholder="San Diego" name="city" id="city" type="text" autofocus="true" class="form-input" />
-          <button id="cityInputBtn" type="submit" class="btn btn-primary" value="Submit">Get Weather</button>
-        </form>
-      </div>
-
-      <!-- Previous Searches box -->
-      <div class="card" id="previousSearches">
-        <h3 class="card-header text-uppercase text-center">Previous Searches</h3>
-        <div class="card-body">
-          <!-- Append li elements to ul -->
-          <ul id="listCities">
-          </ul>
-          <input type="button" value="Clear" id="clear" class="btn btn-danger">
-        </div>
-      </div>
-    </div>
-
-    <!-- Current weather box -->
-    <div id="currentWeather" class="col-8">
-      <h2 class="subtitle mt-2">Today is <span id="currentDate"></span></h2><br>
-      <p id="img"></p>
-      <p>Temperature: <span class="current" id="temp"></span></p>
-      <p>Humidity: <span class="current" id="humidity"></span></p>
-      <p>Wind Speed: <span class="current" id="wind-speed"></span></p>
-      <p>UV index: <span class="current rounded py-2 px-2 text-white" id="uv-index"></span></p>
-    </div>
-
+      <!-- Current weather box -->
+      <section id="currentWeather" class="col-8">
+        <h2 class="subtitle mt-2">Today is <span id="currentDate"></span></h2><br>
+        <p id="img"></p>
+        <p>Temperature: <span class="current" id="temp"></span></p>
+        <p>Humidity: <span class="current" id="humidity"></span></p>
+        <p>Wind Speed: <span class="current" id="wind-speed"></span></p>
+        <p>UV index: <span class="current rounded py-2 px-2 text-white" id="uv-index"></span></p>
+      </section>
+    </section>
+    <section>
+      <h3 class="text-center m-3 p-2" id="forecast-continer">5-Day Forecast:</h3>
+    </section>
+    <hr>
+    
     <!-- For the 5 day forecast -->
-    <div class="col-12" id="future-weather">
-      <h3>5-Day Forecast:</h3>
-      <div class="row text-light">
-        <div class="col-2 bg-light text-dark forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
-          <p class="text-center" id="fDate0"></p>
+    <section id="future-weather flex-column justify-space-around min-100-vh">
+      <section class="flex-row text-light">
+        <section class="container-fluid col bg-light text-dark future text-white ml-2 mb-3 p-2 mt-2 rounded">
+          <p id="fDate0"></p>
           <p id="fImg0"></p>
           <p>Temp: <span id="fTemp0"></span></p>
           <p>Wind Speed: <span id="fWindSpeed0"></span></p>
           <p>Humidity: <span id="fHumidity0"></span></p>
-        </div>
-        <div class="col-2 bg-light text-dark forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+        </section>
+        <section class="container-fluid col bg-light text-dark text-white ml-2 mb-3 p-2 mt-2 rounded">
           <p class="text-center" id="fDate1"></p>
           <p id="fImg1"></p>
           <p>Temp: <span id="fTemp1"></span></p>
           <p>Wind Speed: <span id="fWindSpeed1"></span></p>
           <p>Humidity: <span id="fHumidity1"></span></p>
-        </div>
-        <div class="col-2 bg-light text-dark forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+        </section>
+        <section class="container-fluid col bg-light text-dark text-white ml-2 mb-3 p-2 mt-2 rounded">
           <p class="text-center" id="fDate2"></p>
           <p id="fImg2"></p>
           <p>Temp: <span id="fTemp2"></span></p>
           <p>Wind Speed: <span id="fWindSpeed2"></span></p>
           <p>Humidity: <span id="fHumidity2"></span></p>
-        </div>
-        <div class="col-2 bg-light text-dark forecast text-white ml-2 mb-3 p-2 mt-2 rounded">
+        </section>
+        <section class="container-fluid col bg-light text-dark text-white ml-2 mb-3 p-2 mt-2 rounded">
           <p class="text-center" id="fDate3"></p>
           <p id="fImg3"></p>
           <p>Temp: <span id="fTemp3"></span></p>
           <p>Wind Speed: <span id="fWindSpeed3"></span></p>
           <p>Humidity: <span id="fHumidity3"></span></p>
-        </div>
-        <div class="col-2 bg-light text-dark forecast ml-2 mb-3 p-2 mt-2 rounded">
+        </section>
+        <section class="container-fluid col bg-light text-dark ml-2 mb-3 p-2 mt-2 rounded">
           <p class="text-center" id="fDate4"></p>
           <p id="fImg4"></p>
           <p>Temp: <span id="fTemp4"></span></p>
           <p>Wind Speed: <span id="fWindSpeed4"></span></p>
           <p>Humidity: <span id="fHumidity4"></span></p>
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </section>
 
   </main>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>

@@ -3,7 +3,7 @@
 ## Table of Contents
   - [User Story](#user-story)
   - [Project Description](#project-description)
-  - [Screenshot](#screenshot)
+  - [Screenshot-of-Application](#screenshot-of-application)
   - [Deployed URL Link](#deployed-url-link)
   - [Created By](#created-by)
 
@@ -18,18 +18,19 @@ I WANT a quick way to generate weather for any city searched
 ---
 
 ```md
-When you search for a city
-THEN I am presented with current and future conditions for that city and that city is added to the search history
+
+When you want to check the current weather and five-day forecast
+THEN I am presented with current and five-day forecast for that city and that city is added to local storage
 WHEN I view current weather conditions for that city
 THEN I am presented with the city name, the date, an icon representation of weather conditions, the temperature, the humidity, the wind speed, and the UV index
 WHEN I view the UV index
-THEN I am presented with a color that indicates whether the conditions are favorable, moderate, or severe
-WHEN I view future weather conditions for that city
-THEN I am presented with a 5-day forecast that displays the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
-WHEN I click on a city in the search history
-THEN I am again presented with current and future conditions for that city
+THEN I am presented with a color that shows the severity of that cities UV index
+WHEN I view the five-day forecast for that city
+THEN I am presented with a presented with the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+WHEN I click on a city in the search history/local storage
+THEN I that cities conditions are presented again
 ```
-## Screenshot
+## Screenshot of Application
 ---
 <img src="./Develop/Images/screenshot.png">
 
@@ -42,10 +43,11 @@ Click the lightning bolt [⚡](#) to see the application in action!
 ---
 
 ```md
-Daniel Merkin
+> Daniel Merkin
 ```
 
 Click to view <a href="https://github.com/dmerk2">Daniel Merkin's</a> Github.
 
-
+```md
 © 2022 Daniel Merkin
+```
