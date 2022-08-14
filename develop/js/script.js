@@ -84,15 +84,12 @@ function getWeather(city) {
       windSpeed.textContent = data.main.wind_speed + " MPH";
       uvIndex.textContent = data.main.uvi;
 
-      for (var i = 0; i < 5; i++){
-       
-    }
       // Any change for data everything after stops being displayed!!
       fTemp0.textContent = data.main.temp + " F";
       fTemp1.textContent = data.main.temp + " F";
       fTemp2.textContent = data.main.temp + " F";
       fTemp3.textContent = data.main.temp + " F";
-      fTemp4.textContent = data.main.daily[5].temp + " F";
+      // fTemp4.textContent = data.main.daily[5].temp + " F";
 
       // Future wind speed
       fWindSpeed0.textContent = data.main.wind + " MPH";
