@@ -36,11 +36,14 @@ THEN I am again presented with current and future conditions for that city
 ## Deployed URL Link
 ---
 
-Click the lightning bolt [⚡](https://dmerk2.github.io/Weather-Dashboard/) to see the application in action!
+Click the lightning bolt [⚡](#) to see the application in action!
 
 ## Created By
 ---
+
+```md
 Daniel Merkin
+```
 
 Click to view <a href="https://github.com/dmerk2">Daniel Merkin's</a> Github.
 
