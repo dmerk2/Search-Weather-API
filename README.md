@@ -37,7 +37,7 @@ THEN I that cities conditions are presented again
 ## Deployed URL Link
 ---
 
-Click the lightning bolt [⚡](#) to see the application in action!
+https://dmerk2.github.io/Weather-Dashboard/
 
 ## Created By
 ---
