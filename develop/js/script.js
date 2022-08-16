@@ -28,29 +28,29 @@ fDate4.textContent = moment().add(5, "days").format("l");
 cityInput.addEventListener("click", function (event) {
   event.preventDefault();
   var userInput = document.getElementById("city").value;
-  // Keith -- Saves city to local memory
+  // Saves city to local memory
   addCityName(userInput);
-  //Keith -- Fetches data from API
+  // Fetches data from API
   getWeather(userInput);
 });
-//Keith - Function to get 5-Day forecast
+// Function to get 5-Day forecast
 function getWeather(city) {
   var requestUrl =
     "https://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&units=imperial&APPID=" +
     apiKey;
+  // `https://api.openweathermap.org/data/2.5/weather?=${city}&units=imperial&APPID=${apiKey}`
   fetch(requestUrl)
     .then(function (response) {
-      // console.log(response);
       return response.json();
     })
     .then(function (data) {
-      // console.log(data);
       //Keith -- need to add another fetch (Below) to get coordinates to 5-Day forecast URL
       var requestUrl2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${data.coord.lat}&lon=${data.coord.lon}&units=imperial&appid=${apiKey}`;
       return fetch(requestUrl2);
-    }).then(function (response) {
+    })
+    .then(function (response) {
       // console.log(response);
       return response.json();
     })
@@ -88,8 +88,10 @@ function getWeather(city) {
       humidity.textContent = data.list[0].main.humidity + " %";
       temp.textContent = data.list[0].main.temp + " F";
       windSpeed.textContent = data.list[0].wind.speed + " MPH";
+
       //Keith -- I got UV from another API
       // uvIndex.textContent = data.main.uvi;
+
       console.log(data.list[0].wind.speed);
       fTemp0.textContent = data.list[0].main.temp + " F";
       fTemp1.textContent = data.list[9].main.temp + " F";
@@ -99,9 +101,9 @@ function getWeather(city) {
       // Future wind speed
       fWindSpeed0.textContent = data.list[0].wind.speed + " MPH";
       fWindSpeed1.textContent = data.list[9].wind.speed + " MPH";
-      fWindSpeed2.textContent = data.list[18].main.wind + " MPH";
-      fWindSpeed3.textContent = data.list[27].main.wind + " MPH";
-      fWindSpeed4.textContent = data.list[36].main.wind + " MPH";
+      fWindSpeed2.textContent = data.list[18].wind.speed + " MPH";
+      fWindSpeed3.textContent = data.list[27].wind.speed + " MPH";
+      fWindSpeed4.textContent = data.list[36].wind.speed + " MPH";
       // Future humidity
       fHumidity0.textContent = data.list[0].main.humidity + " %";
       fHumidity1.textContent = data.list[9].main.humidity + " %";
@@ -109,16 +111,40 @@ function getWeather(city) {
       fHumidity3.textContent = data.list[27].main.humidity + " %";
       fHumidity4.textContent = data.list[36].main.humidity + " %";
 
-      //Keith - Needed to move the variables below to
-      // var lat = data.coord.lat;
-      // var lon = data.coord.lon;
+      uvIndex = data.value;
+      var uvColorEl = document.querySelector("#uv-index");
+
+      uvColorEl.textContent.uvIndex;
+
+      // if (uvIndex > 11) {
+      //   uvColorEl.setAttribute("class", "bg-light");
+      // } else if (uvIndex > 8 && uvIndex < 11) {
+      //   uvColorEl.setAttribute("class", "bg-danger");
+      // } else if (uvIndex > 6 && uvIndex < 8 + uvIndex) {
+      //   uvColorEl.setAttribute("class", "bg-warning");
+      // } else if (uvIndex > 3 && uv < 6 + uvIndex) {
+      //   uvColorEl.setAttribute("class", "bg-success");
+      // }
+
       getUV(lat, lon);
       return data;
     })
     .catch(function (error) {
-      // console.log(error);
+      console.log(error);
     });
 }
+
+// Function to get the uv index for the current city
+// function getUvIndex(cityName) {
+//   if (uvIndex >= 8) {
+//     document.querySelector("#uvIndex").style("color", "red");
+//   } else if (uvIndex > 4 && uvIndex < 8) {
+//     document.querySelector("#uvIndex").style("color", "yellow");
+//   } else {
+//     document.querySelector("#uvIndex").style("color", "green");
+//   }
+// }
+
 getWeather(city);
 function getUV(lat, lon) {
   var requestUrl =
@@ -131,35 +157,20 @@ function getUV(lat, lon) {
     apiKey;
   fetch(requestUrl)
     .then(function (response) {
-      // console.log(response);
       return response.json();
     })
     .then(function (data) {
       uvIndex = document.querySelector("#uv-index");
       uvIndex = response.current.uvi;
-      // console.log(uvIndex);
       uvIndex.textContent = uvIndex;
-      // fTemp0.textContent = data.main.temp + " F";
       return data;
     })
     .catch(function (error) {
       alert("No UV connection");
     });
 }
-// Function to get the uv index for the current city
-function getUvIndex(cityName) {
-  if (uvIndex >= 8) {
-    document.getElementById("uvIndex").style("color", "red");
-  } else if (uvIndex > 4 && uvIndex < 8) {
-    document.getElementById("uvIndex").style("color", "yellow");
-  } else {
-    document.getElementById("uvIndex").style("color", "green");
-  }
-}
-// getUvIndex(uvIndex);
+
 function addCityName(cityName) {
-  // var userInput = document.getElementById("city").value;
-  // console.log(cityName); // -> Dallas
   var tempArr = JSON.parse(localStorage.getItem("allCities"));
   if (tempArr === null) tempArr = [];
   var stored = {
@@ -173,6 +184,7 @@ function addCityName(cityName) {
   // Update the data in localStorage
   localStorage.setItem("allCities", JSON.stringify(tempArr));
 }
+
 //Clear the search history and local storage from the page
 function clearHistory(event) {
   event.preventDefault();
@@ -180,7 +192,9 @@ function clearHistory(event) {
   localStorage.clear();
   document.location.reload();
 }
+
 clear.addEventListener("click", clearHistory);
+
 function renderSaved() {
   var cities = localStorage.getItem("allCities");
   var printCity = JSON.parse(cities);
