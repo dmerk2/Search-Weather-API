@@ -44,19 +44,14 @@ function getWeather(city) {
     city +
     "&units=imperial&APPID=" +
     apiKey;
-  // `https://api.openweathermap.org/data/2.5/weather?=${city}&units=imperial&APPID=${apiKey}`
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
     })
     .then(function (data) {
-      //Keith -- need to add another fetch (Below) to get coordinates to 5-Day forecast URL
-      console.log(data);
-
+      // console.log(data);
       currentIcon = data.weather[0].icon;
-      console.log(currentIcon)
 
-    
       var requestUrl2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${data.coord.lat}&lon=${data.coord.lon}&units=imperial&appid=${apiKey}`;
       return fetch(requestUrl2);
     })
@@ -65,7 +60,6 @@ function getWeather(city) {
       return response.json();
     })
     .then(function (data) {
-      console.log("//------------------//");
       console.log(data);
       //Keith -- Image in HTML needs have an IMG tag couldn't figure it out
       // var iconEl = getElementById('icon');
@@ -99,16 +93,20 @@ function getWeather(city) {
       humidity.textContent = data.list[0].main.humidity + " %";
       temp.textContent = data.list[0].main.temp + " F";
       windSpeed.textContent = data.list[0].wind.speed + " MPH";
-      var iconUrl = `https://openweathermap.org/img/w/${currentIcon}.png`;
-      // iconImg.setAttribute("src", iconUrl)
+
+      // Retrieve weather icon
+      var iconUrl =
+        "https://openweathermap.org/img/wn/" +
+        data.list[0].weather[0].icon +
+        "@2x.png";
+      iconImg.setAttribute("src", iconUrl);
       document.querySelector("#img").setAttribute("src", iconUrl);
-      
-
-
-      //Keith -- I got UV from another API
-      // uvIndex.textContent = data.main.uvi;
-
-      console.log(data.list[0].wind.speed);
+      document.querySelector("#fImg0").setAttribute("src", iconUrl);
+      document.querySelector("#fImg1").setAttribute("src", iconUrl);
+      document.querySelector("#fImg2").setAttribute("src", iconUrl);
+      document.querySelector("#fImg3").setAttribute("src", iconUrl);
+      document.querySelector("#fImg4").setAttribute("src", iconUrl);
+      // Future Temp
       fTemp0.textContent = data.list[0].main.temp + " F";
       fTemp1.textContent = data.list[9].main.temp + " F";
       fTemp2.textContent = data.list[18].main.temp + " F";
@@ -127,10 +125,10 @@ function getWeather(city) {
       fHumidity3.textContent = data.list[27].main.humidity + " %";
       fHumidity4.textContent = data.list[36].main.humidity + " %";
 
-      uvIndex = data.value;
-      var uvColorEl = document.querySelector("#uv-index");
+      // uvIndex = data.value;
+      // var uvColorEl = document.querySelector("#uv-index");
 
-      uvColorEl.textContent.uvIndex;
+      // uvColorEl.textContent.uvIndex;
 
       // if (uvIndex > 11) {
       //   uvColorEl.setAttribute("class", "bg-light");
@@ -146,7 +144,7 @@ function getWeather(city) {
       return data;
     })
     .catch(function (error) {
-      console.log(error);
+      // console.log(error);
     });
 }
 
@@ -176,10 +174,10 @@ function getUV(lat, lon) {
       return response.json();
     })
     .then(function (data) {
-      console.log(data)
+      console.log(data);
       uvIndex = document.querySelector("#uv-index");
-      uvIndex = response.current.uvi;
-      uvIndex.textContent = uvIndex;
+      // uvIndex = response.current.uvi;
+      // uvIndex.textContent = uvIndex;
       return data;
     })
     .catch(function (error) {
