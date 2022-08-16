@@ -39,6 +39,10 @@ p {
   font-size: 1.2rem;
 }
 
+#cityInputBtn {
+  margin-bottom: 1rem;
+}
+
 .btn {
   font-size: 1.3rem;
   text-decoration: none;
