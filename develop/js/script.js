@@ -24,6 +24,10 @@ var fDate3 = document.querySelector("#fDate3");
 fDate3.textContent = moment().add(4, "days").format("l");
 var fDate4 = document.querySelector("#fDate4");
 fDate4.textContent = moment().add(5, "days").format("l");
+
+var currentIcon;
+var iconImg = document.querySelector("#fImg0");
+
 // Grab user's input
 cityInput.addEventListener("click", function (event) {
   event.preventDefault();
@@ -47,6 +51,12 @@ function getWeather(city) {
     })
     .then(function (data) {
       //Keith -- need to add another fetch (Below) to get coordinates to 5-Day forecast URL
+      console.log(data);
+
+      currentIcon = data.weather[0].icon;
+      console.log(currentIcon)
+
+    
       var requestUrl2 = `https://api.openweathermap.org/data/2.5/forecast?lat=${data.coord.lat}&lon=${data.coord.lon}&units=imperial&appid=${apiKey}`;
       return fetch(requestUrl2);
     })
@@ -55,7 +65,8 @@ function getWeather(city) {
       return response.json();
     })
     .then(function (data) {
-      // console.log(data);
+      console.log("//------------------//");
+      console.log(data);
       //Keith -- Image in HTML needs have an IMG tag couldn't figure it out
       // var iconEl = getElementById('icon');
       // iconEl.textContent = data.list[0].weather[0].icon;
@@ -88,6 +99,11 @@ function getWeather(city) {
       humidity.textContent = data.list[0].main.humidity + " %";
       temp.textContent = data.list[0].main.temp + " F";
       windSpeed.textContent = data.list[0].wind.speed + " MPH";
+      var iconUrl = `https://openweathermap.org/img/w/${currentIcon}.png`;
+      // iconImg.setAttribute("src", iconUrl)
+      document.querySelector("#img").setAttribute("src", iconUrl);
+      
+
 
       //Keith -- I got UV from another API
       // uvIndex.textContent = data.main.uvi;
@@ -160,6 +176,7 @@ function getUV(lat, lon) {
       return response.json();
     })
     .then(function (data) {
+      console.log(data)
       uvIndex = document.querySelector("#uv-index");
       uvIndex = response.current.uvi;
       uvIndex.textContent = uvIndex;
