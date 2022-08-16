@@ -18,7 +18,6 @@ I WANT a quick way to generate weather for any city searched
 ---
 
 ```md
-
 When you want to check the current weather and five-day forecast
 THEN I am presented with current and five-day forecast for that city and that city is added to local storage
 WHEN I view current weather conditions for that city
@@ -26,13 +25,14 @@ THEN I am presented with the city name, the date, an icon representation of weat
 WHEN I view the UV index
 THEN I am presented with a color that shows the severity of that cities UV index
 WHEN I view the five-day forecast for that city
-THEN I am presented with a presented with the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
+THEN I am presented with a the date, an icon representation of weather conditions, the temperature, the wind speed, and the humidity
 WHEN I click on a city in the search history/local storage
 THEN I that cities conditions are presented again
 ```
+
 ## Screenshot of Application
 ---
-<img src="./Develop/Images/screenshot.png">
+<img src="./Images/screenshot.png">
 
 ## Deployed URL Link
 ---
@@ -41,10 +41,6 @@ Click the lightning bolt [⚡](#) to see the application in action!
 
 ## Created By
 ---
-
-```md
-> Daniel Merkin
-```
 
 Click to view <a href="https://github.com/dmerk2">Daniel Merkin's</a> Github.
 
